@@ -3,7 +3,10 @@ import "./App.css";
 function App() {
   return (
     <>
-      <h1 className="logo">Filmovo</h1>
+      <div className="logo">
+        <h1>Filmovo</h1>
+      </div>
+
       <div className="buttons">
         <button>Log in</button>
         <button>Sign in</button>
