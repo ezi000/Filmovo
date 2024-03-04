@@ -1,26 +1,41 @@
 #root {
   max-width: 1280px;
+  width: 100vw;
+  height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
-  font-family: "Plush-Regular", Courier, monospace;
+  font-family: "Mirador-BoldDEMO", Arial, monospace;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .logo {
   display: flex;
-  font-size: 10rem;
+  justify-content: center;
   margin: 0 0 3rem 0;
+  font-size: clamp(1rem, 6vw, 5rem);
+}
+
+h1 {
+  margin: 0;
+  flex-grow: 1;
+  user-select: none;
+  color: #586731;
 }
 
 .buttons {
   display: flex;
   gap: 2rem;
   justify-content: center;
+  font-size: calc(0.7rem + 1vw);
+}
+
+button:hover {
+  background-color: #cea6a9;
 }
 
 @font-face {
-  font-family: "Plush-Regular";
-  src: url("./assets/font/Plush-Regular.ttf");
+  font-family: "Mirador-BoldDEMO";
+  src: url("./assets/font/Mirador-BoldDEMO.otf");
 }
