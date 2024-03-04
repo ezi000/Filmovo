@@ -4,7 +4,7 @@ function App() {
   return (
     <>
       <div className="logo">
-        <h1>Filmovo</h1>
+        <h1>Filmovo.</h1>
       </div>
 
       <div className="buttons">
