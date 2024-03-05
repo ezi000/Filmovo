@@ -10,11 +10,11 @@ function App() {
 
       <div className="buttons">
         <Link to="login">
-          <button id="logIn">Log in</button>
+          <button id="logIn">Log In</button>
         </Link>
 
         <Link to="register">
-          <button id="signIn">Sign in</button>
+          <button id="signUp">Sign Up</button>
         </Link>
       </div>
     </>

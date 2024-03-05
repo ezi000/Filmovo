@@ -20,7 +20,7 @@ function login() {
 const Login = () => {
   return (
     <div className="auth">
-      <label htmlFor="name">Login</label>
+      <div className="h1">Log In</div>
       <input
         type="text"
         id="name"
@@ -28,8 +28,8 @@ const Login = () => {
         required
         minLength="4"
         size="10"
+        placeholder="Login"
       />
-      <label htmlFor="password">Password</label>
       <input
         type="password"
         id="password"
@@ -37,6 +37,7 @@ const Login = () => {
         required
         minLength="4"
         size="10"
+        placeholder="Password"
       />
       <button onClick={login} id="login">
         Log in
