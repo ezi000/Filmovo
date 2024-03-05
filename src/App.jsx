@@ -1,4 +1,5 @@
 import "./App.css";
+import { Link } from "react-router-dom";
 
 function App() {
   return (
@@ -8,8 +9,13 @@ function App() {
       </div>
 
       <div className="buttons">
-        <button>Log in</button>
-        <button>Sign in</button>
+        <Link to="login">
+          <button id="logIn">Log In</button>
+        </Link>
+
+        <Link to="register">
+          <button id="signUp">Sign Up</button>
+        </Link>
       </div>
     </>
   );
