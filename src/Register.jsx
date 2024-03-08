@@ -1,8 +1,42 @@
+import { useState } from "react";
 import "./auth.css";
 
-function register() {
-  const loginSign = document.getElementById("name").value;
-  const passwordSign = document.getElementById("password").value;
+//można dodać, żeby trzeba było 2x wpisać to samo hasło
+const Register = () => {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+    <div className="auth">
+      <div className="h1">Sign Up</div>
+      <div className="fields">
+        <input
+          type="text"
+          name="login"
+          value={login}
+          onChange={(event) => setLogin(event.target.value)}
+          required
+          size="10"
+          placeholder="Login"
+        />
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          required
+          size="10"
+          placeholder="Password"
+        />
+      </div>
+      <button onClick={() => register(login, password)} id="register">
+        Register
+      </button>
+    </div>
+  );
+};
+
+const register = (loginSign, passwordSign) => {
   fetch("http://localhost:3000/users/signup", {
     method: "POST",
     headers: {
@@ -15,38 +49,6 @@ function register() {
   }).then((_data) => {
     window.location.reload();
   });
-}
-
-//można dodać, żeby trzeba było 2x wpisać to samo hasło
-const Register = () => {
-  return (
-    <div className="auth">
-      <div className="h1">Sign Up</div>
-      <div className="fields">
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          minLength="4"
-          size="10"
-          placeholder="Login"
-        />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          minLength="4"
-          size="10"
-          placeholder="Password"
-        />
-      </div>
-      <button onClick={register} id="register">
-        Register
-      </button>
-    </div>
-  );
 };
 
 export default Register;
