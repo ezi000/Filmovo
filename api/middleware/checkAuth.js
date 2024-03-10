@@ -12,7 +12,7 @@ function checkAuth(req, res, next) {
     req.username = data.username;
     return next();
   } catch (err) {
-    return res.status(403).json({ message: "authorization error" });
+    return res.status(403).json({ message: "Authorization error" });
   }
 }
 
