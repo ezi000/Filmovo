@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./auth.css";
 
-//można dodać, żeby trzeba było 2x wpisać to samo hasło
+//można dodać, żeby trzeba było 2x wpisać to samo hasło - (coś typu (value={password}!==value={passwordRepeate})? ERROR : register(login, password) )
 const Register = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
