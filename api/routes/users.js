@@ -2,7 +2,6 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
-import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
@@ -13,6 +12,7 @@ router.post("/signup", async (req, res, next) => {
       username: req.body.username,
       password: hashedPassword,
       isAdmin: false,
+      //nickname: '',
     });
     await user.save();
     res.status(201).json({ message: "Created user" });
@@ -39,6 +39,8 @@ router.post("/login", async (req, res, next) => {
     const token = jwt.sign({ username: user.username }, process.env.JWT_KEY, {
       expiresIn: "3h",
     });
+
+    console.log(res);
 
     return res
       .cookie("token", token, {

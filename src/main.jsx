@@ -5,7 +5,9 @@ import App from "./App.jsx";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 import "./index.css";
+import SearchPage from "./SearchPage.jsx";
 
+//normalnie owinąć element w context
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
+  },
+  {
+    path: "search",
+    element: <SearchPage />,
   },
 ]);
 

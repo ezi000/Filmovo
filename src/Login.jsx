@@ -26,14 +26,14 @@ const Login = () => {
         size="10"
         placeholder="Password"
       />
-      <button onClick={() => loginLog(login, password)} id="login">
+      <button onClick={() => handleLogin(login, password)} id="login">
         Log in
       </button>
     </div>
   );
 };
 
-const loginLog = (loginLog, passwordLog) => {
+const handleLogin = (loginLog, passwordLog) => {
   fetch("http://localhost:3000/users/login", {
     method: "POST",
     headers: {
@@ -44,7 +44,8 @@ const loginLog = (loginLog, passwordLog) => {
       password: passwordLog,
     }),
   }).then((_data) => {
-    window.location.reload();
+    //przekazać username do main.jsx?
+    //if nickname = '' -> username
   });
 };
 

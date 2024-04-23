@@ -29,14 +29,14 @@ const Register = () => {
           placeholder="Password"
         />
       </div>
-      <button onClick={() => register(login, password)} id="register">
+      <button onClick={() => handleRegistration(login, password)} id="register">
         Register
       </button>
     </div>
   );
 };
 
-const register = (loginSign, passwordSign) => {
+const handleRegistration = (loginSign, passwordSign) => {
   fetch("http://localhost:3000/users/signup", {
     method: "POST",
     headers: {
