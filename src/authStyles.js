@@ -43,7 +43,7 @@ display: flex;
 
 export const StyledInput = styled.input`
 background-color: aliceblue;
-border: 0;
+border: 1px solid transparent;
 border-radius: 0.2rem;
 color: black;
 height: 2rem;

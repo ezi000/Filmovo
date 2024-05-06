@@ -63,6 +63,7 @@ const handleLogin = (loginLog, passwordLog) => {
       password: passwordLog,
     }),
   }).then((_data) => {
+    console.log(_data);
     //do reduxa przekazać usera do globalnego stanu
     //if nickname = '' -> username
   });

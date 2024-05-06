@@ -18,7 +18,6 @@ router.post("/signup", async (req, res, next) => {
     res.status(201).json({ message: "Created user" });
   } catch (error) {
     res.status(500).json(error);
-    //zrób obsługę błędów - error 500 wtedy jak już jest user o takim loginie w bazie
   }
 });
 

@@ -7,40 +7,61 @@ import {
   Body,
   StyledButton,
 } from "./authStyles.js";
+import { useFormik } from "formik";
 
 //można dodać, żeby trzeba było 2x wpisać to samo hasło - (coś typu (value={password}!==value={passwordRepeate})? ERROR : register(login, password) )
 const Register = () => {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-
+  const formik = useFormik({
+    initialValues: {
+      login: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      try {
+        const error = await handleRegistration(values.login, values.password);
+        if (error == 500) {
+          formik.setErrors({ login: error });
+          formik.values.login = "";
+          formik.values.password = "";
+        } else {
+          formik.resetForm();
+        }
+      } catch (error) {
+        formik.setErrors({ login: error });
+      }
+    },
+  });
   return (
     <Body>
-      <StyledAuthBody>
+      <StyledAuthBody onSubmit={formik.handleSubmit}>
         <StyledH1>Sign Up</StyledH1>
         <Fields>
           <StyledInput
             type="text"
             name="login"
-            value={login}
-            onChange={(event) => setLogin(event.target.value)}
+            value={formik.values.login}
+            onChange={formik.handleChange}
             required
             size="10"
-            placeholder="Login"
+            placeholder={
+              formik.errors.login
+                ? "User with that login already exists"
+                : "Login"
+            }
+            style={{ borderColor: formik.errors.login ? "red" : "" }}
           />
           <StyledInput
             type="password"
             name="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            value={formik.values.password}
+            onChange={formik.handleChange}
             required
             size="10"
             placeholder="Password"
+            style={{ borderColor: formik.errors.login ? "red" : "" }}
           />
         </Fields>
-        <StyledButton
-          onClick={() => handleRegistration(login, password)}
-          id="register"
-        >
+        <StyledButton type="submit" disabled={!formik.isValid}>
           Register
         </StyledButton>
       </StyledAuthBody>
@@ -49,7 +70,7 @@ const Register = () => {
 };
 
 const handleRegistration = (loginSign, passwordSign) => {
-  fetch("http://localhost:3000/users/signup", {
+  return fetch("http://localhost:3000/users/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -59,7 +80,7 @@ const handleRegistration = (loginSign, passwordSign) => {
       password: passwordSign,
     }),
   }).then((_data) => {
-    window.location.reload();
+    return _data.status;
   });
 };
 
