@@ -4,10 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
-import "./index.css";
 import SearchPage from "./SearchPage.jsx";
+import GlobalFonts from "./assets/globalStyles";
 
-//normalnie owinąć element w context
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +28,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <GlobalFonts />
     <RouterProvider router={router} />
   </React.StrictMode>
 );

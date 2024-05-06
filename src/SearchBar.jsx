@@ -1,13 +1,8 @@
 import { useState } from "react";
-import "./search-page.css";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
-
-SearchBar.propTypes = {
-  searchMovies: PropTypes.func.isRequired,
-};
 
 const SearchBar = ({ searchMovies }) => {
   const [title, setTitle] = useState("");
@@ -21,6 +16,7 @@ const SearchBar = ({ searchMovies }) => {
     <>
       <form onSubmit={handleSearch}>
         <TextField
+          sx={{ width: "100%", borderRadius: "0.8rem", padding: "0" }}
           className="input"
           placeholder="Search movies"
           color="success"
@@ -43,6 +39,10 @@ const SearchBar = ({ searchMovies }) => {
       </form>
     </>
   );
+};
+
+SearchBar.propTypes = {
+  searchMovies: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

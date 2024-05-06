@@ -1,35 +1,54 @@
-import { useState } from "react";
-import "./auth.css";
+import {
+  StyledAuthBody,
+  StyledH1,
+  Fields,
+  StyledInput,
+  Body,
+  StyledButton,
+} from "./authStyles.js";
+import { useFormik } from "formik";
 
 const Login = () => {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const formik = useFormik({
+    initialValues: {
+      login: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      handleLogin(values.login, values.password);
+      formik.resetForm();
+    },
+  });
 
   return (
-    <div className="auth">
-      <div className="h1">Log In</div>
-      <input
-        type="text"
-        name="loginn"
-        value={login}
-        onChange={(event) => setLogin(event.target.value)}
-        required
-        size="10"
-        placeholder="Login"
-      />
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-        required
-        size="10"
-        placeholder="Password"
-      />
-      <button onClick={() => handleLogin(login, password)} id="login">
-        Log in
-      </button>
-    </div>
+    <Body>
+      <StyledAuthBody onSubmit={formik.handleSubmit}>
+        <StyledH1>Log In</StyledH1>
+        <Fields>
+          <StyledInput
+            type="text"
+            name="login"
+            value={formik.values.login}
+            onChange={formik.handleChange}
+            required
+            size="10"
+            placeholder="Login"
+          />
+          <StyledInput
+            type="password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            required
+            size="10"
+            placeholder="Password"
+          />
+        </Fields>
+        <StyledButton type="submit" disabled={!formik.isValid}>
+          Log in
+        </StyledButton>
+      </StyledAuthBody>
+    </Body>
   );
 };
 
@@ -44,7 +63,7 @@ const handleLogin = (loginLog, passwordLog) => {
       password: passwordLog,
     }),
   }).then((_data) => {
-    //przekazać username do main.jsx?
+    //do reduxa przekazać usera do globalnego stanu
     //if nickname = '' -> username
   });
 };
