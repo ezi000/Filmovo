@@ -1,43 +1,76 @@
 import { useState } from "react";
-import "./auth.css";
+import {
+  StyledAuthBody,
+  StyledH1,
+  Fields,
+  StyledInput,
+  Body,
+  StyledButton,
+} from "./authStyles.js";
+import { useFormik } from "formik";
 
 //można dodać, żeby trzeba było 2x wpisać to samo hasło - (coś typu (value={password}!==value={passwordRepeate})? ERROR : register(login, password) )
 const Register = () => {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-
+  const formik = useFormik({
+    initialValues: {
+      login: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      try {
+        const error = await handleRegistration(values.login, values.password);
+        if (error == 500) {
+          formik.setErrors({ login: error });
+          formik.values.login = "";
+          formik.values.password = "";
+        } else {
+          formik.resetForm();
+        }
+      } catch (error) {
+        formik.setErrors({ login: error });
+      }
+    },
+  });
   return (
-    <div className="auth">
-      <div className="h1">Sign Up</div>
-      <div className="fields">
-        <input
-          type="text"
-          name="login"
-          value={login}
-          onChange={(event) => setLogin(event.target.value)}
-          required
-          size="10"
-          placeholder="Login"
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-          size="10"
-          placeholder="Password"
-        />
-      </div>
-      <button onClick={() => register(login, password)} id="register">
-        Register
-      </button>
-    </div>
+    <Body>
+      <StyledAuthBody onSubmit={formik.handleSubmit}>
+        <StyledH1>Sign Up</StyledH1>
+        <Fields>
+          <StyledInput
+            type="text"
+            name="login"
+            value={formik.values.login}
+            onChange={formik.handleChange}
+            required
+            size="10"
+            placeholder={
+              formik.errors.login
+                ? "User with that login already exists"
+                : "Login"
+            }
+            style={{ borderColor: formik.errors.login ? "red" : "" }}
+          />
+          <StyledInput
+            type="password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            required
+            size="10"
+            placeholder="Password"
+            style={{ borderColor: formik.errors.login ? "red" : "" }}
+          />
+        </Fields>
+        <StyledButton type="submit" disabled={!formik.isValid}>
+          Register
+        </StyledButton>
+      </StyledAuthBody>
+    </Body>
   );
 };
 
-const register = (loginSign, passwordSign) => {
-  fetch("http://localhost:3000/users/signup", {
+const handleRegistration = (loginSign, passwordSign) => {
+  return fetch("http://localhost:3000/users/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +80,7 @@ const register = (loginSign, passwordSign) => {
       password: passwordSign,
     }),
   }).then((_data) => {
-    window.location.reload();
+    return _data.status;
   });
 };
 
