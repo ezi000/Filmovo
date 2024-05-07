@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   StyledAuthBody,
   StyledH1,
@@ -9,7 +8,8 @@ import {
 } from "./authStyles.js";
 import { useFormik } from "formik";
 
-//można dodać, żeby trzeba było 2x wpisać to samo hasło - (coś typu (value={password}!==value={passwordRepeate})? ERROR : register(login, password) )
+//można dodać, żeby trzeba było 2x wpisać to samo hasło - łatwe w formiku, można też dodaż, że pole muszą być wypełnione zamiast korzystać z przeglądarkowej walidacji
+
 const Register = () => {
   const formik = useFormik({
     initialValues: {
