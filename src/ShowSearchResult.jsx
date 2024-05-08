@@ -14,8 +14,8 @@ const ShowSearchResult = ({ movieList = [] }) => {
     <ListedMoviesBody
       style={movieList.length > 0 ? { backgroundColor: "white" } : {}}
     >
-      {movieList.map((movie, index) => (
-        <ListedMoviesButton key={index}>
+      {movieList.map((movie) => (
+        <ListedMoviesButton key={movie.id}>
           {movie.primaryImage !== null ? (
             <MoviePoster
               src={movie.primaryImage.url}

@@ -5,7 +5,7 @@ const getMovieList = async (title) => {
     method: "GET",
     url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${title}`,
     params: {
-      exact: "true",
+      exact: "false",
       titleType: "movie",
       limit: "5",
     },
