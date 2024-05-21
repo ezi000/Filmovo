@@ -6,22 +6,17 @@ import styled from "styled-components";
 
 const SearchPage = () => {
   const [movies, setMovies] = useState([]);
-  const [movie, setselectedMovie] = useState({});
 
   const searchMovies = async (title) => {
     const moviesArr = await getMovieList(title);
     setMovies(moviesArr);
   };
 
-  const handleSearch = (movie) => { setselectedMovie(movie) }
-
-
   return (
     <Body>
       <SearchBar searchMovies={searchMovies} />
       <ShowSearchResult movieList={movies} />
     </Body>
-    // W podobny sposob przekazac z komponentu przekazac obiekt filmu
   );
 };
 

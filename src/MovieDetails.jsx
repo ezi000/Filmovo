@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import BasicRating from './BasicRating';
-import styled from 'styled-components';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import BasicRating from "./BasicRating";
+import styled from "styled-components";
+import axios from "axios";
 
 function MovieDetails() {
   const { id } = useParams(); // Pobieramy identyfikator filmu z adresu URL
@@ -11,12 +11,13 @@ function MovieDetails() {
   useEffect(() => {
     async function getMovieDetails() {
       const options = {
-        method: 'GET',
+        method: "GET",
         url: `https://moviesdatabase.p.rapidapi.com/titles/${id}`,
         headers: {
-          'X-RapidAPI-Key': 'b1a45e8a00mshbd6942a92cb4229p1cbeecjsn4081074d23ae',
-          'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-        }
+          "X-RapidAPI-Key":
+            "b1a45e8a00mshbd6942a92cb4229p1cbeecjsn4081074d23ae",
+          "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com",
+        },
       };
 
       try {
@@ -24,10 +25,10 @@ function MovieDetails() {
         if (response.status === 200) {
           setMovieDetails(response.data.results);
         } else {
-          throw new Error('Failed to fetch movie details');
+          throw new Error("Failed to fetch movie details");
         }
       } catch (error) {
-        console.error('Error fetching movie details:', error);
+        console.error("Error fetching movie details:", error);
       }
     }
     getMovieDetails();
