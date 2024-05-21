@@ -8,7 +8,6 @@ export const Body = styled.div`
   height: 100%;
 `;
 //changed div to form
-//ba bla bla test gita
 export const StyledAuthBody = styled.form`
   align-items: center;
   margin-top: 5rem;
