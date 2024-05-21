@@ -6,7 +6,8 @@ import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 import SearchPage from "./SearchPage.jsx";
 import GlobalFonts from "./assets/globalStyles";
-
+import MovieDetails from "./MovieDetails.jsx";
+// import { GlobalContext } from "./Context.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "search",
     element: <SearchPage />,
+  },
+  {
+    path: "/search/details/:id",
+    element: <MovieDetails />,
   },
 ]);
 

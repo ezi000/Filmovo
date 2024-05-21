@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ShowSearchResult = ({ movieList = [] }) => {
   const movies = useRef([]);
@@ -16,23 +17,26 @@ const ShowSearchResult = ({ movieList = [] }) => {
     >
       {movieList.map((movie, index) => (
         <ListedMoviesButton key={index}>
+          <Link to={`details/${movie.id}`}>
+          {/* <Link to="details" params={{test:"cokolwiek"}}> */}
           {movie.primaryImage !== null ? (
             <MoviePoster
-              src={movie.primaryImage.url}
-              alt={movie.titleText.text}
+            src={movie.primaryImage.url}
+            alt={movie.titleText.text}
             />
-          ) : (
-            <MoviePoster
+            ) : (
+              <MoviePoster
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
               alt="placeholder image"
-            />
-          )}
+              />
+              )}
           <div style={{ maxHeight: "10%" }}>{movie.titleText.text}</div>
           <div style={{ maxHeight: "10%" }}>
             {movie.releaseYear !== null
               ? "(" + movie.releaseYear.year + ")"
               : "(????)"}
           </div>
+              </Link>
         </ListedMoviesButton>
       ))}
     </ListedMoviesBody>
