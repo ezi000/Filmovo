@@ -9,9 +9,10 @@ const  checkAuth= async(req, res, next) =>{
   }
 
   try {
-    // eslint-disable-next-line no-undef
     const data = jwt.verify(token, process.env.JWT_KEY);
+    console.log(data);
     const user = await User.findOne({ username: data.username });
+    console.log(user)
     req.user = user;
     return next();
   } catch (err) {

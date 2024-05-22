@@ -7,7 +7,6 @@ import {
   StyledButton,
 } from "./authStyles.js";
 import { useFormik } from "formik";
-import { getLoggedUser } from "./getLoggedUser.js";
 
 const Login = () => {
   const formik = useFormik({
@@ -17,7 +16,6 @@ const Login = () => {
     },
     onSubmit: async (values) => {
       handleLogin(values.login, values.password);
-      console.log(getLoggedUser());
       formik.resetForm();
     },
   });
@@ -56,7 +54,7 @@ const Login = () => {
 
 const handleLogin = async (loginLog, passwordLog) => {
   try {
-    await fetch("http://localhost:3000/users/login", {
+    const response = await fetch("http://localhost:3000/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,6 +64,9 @@ const handleLogin = async (loginLog, passwordLog) => {
         password: passwordLog,
       }),
     });
+    const userResponse = await response.json();
+    const user = JSON.stringify(userResponse.user);
+    localStorage.setItem("user", `${user}`);
   } catch (error) {
     console.error("Error logging in:", error);
   }

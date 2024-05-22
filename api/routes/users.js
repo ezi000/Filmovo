@@ -48,6 +48,7 @@ router.post("/login", async (req, res, _next) => {
       .json({
         message: "Logged in",
         token,
+        user: { userId: user._id, username: user.username, isAdmin: user.isAdmin } ,
       });
   } catch (error) {
     res.status(500).json(error);
@@ -57,13 +58,6 @@ router.post("/login", async (req, res, _next) => {
 router.post("/logout", (req, res, _next) => {
   res.clearCookie("token");
   return res.json({ message: "Logged out" });
-});
-
-router.get("/me", checkAuth, async (req, res, _next) => {
-  if (!req.user) {
-    return res.status(403).json({ message: "Authorization error" });
-  }
-  return res.json(req.user);
 });
 
 
