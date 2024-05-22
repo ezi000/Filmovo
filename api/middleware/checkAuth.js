@@ -10,7 +10,9 @@ const  checkAuth= async(req, res, next) =>{
 
   try {
     const data = jwt.verify(token, process.env.JWT_KEY);
+    console.log(data);
     const user = await User.findOne({ username: data.username });
+    console.log(user)
     req.user = user;
     return next();
   } catch (err) {

@@ -15,10 +15,9 @@ const ShowSearchResult = ({ movieList = [] }) => {
     <ListedMoviesBody
       style={movieList.length > 0 ? { backgroundColor: "white" } : {}}
     >
-      {movieList.map((movie, index) => (
-        <ListedMoviesButton key={index}>
+      {movieList.map((movie) => (
+        <ListedMoviesButton key={movie.id}>
           <Link to={`details/${movie.id}`}>
-            {/* <Link to="details" params={{test:"cokolwiek"}}> */}
             {movie.primaryImage !== null ? (
               <MoviePoster
                 src={movie.primaryImage.url}
@@ -30,9 +29,7 @@ const ShowSearchResult = ({ movieList = [] }) => {
                 alt="placeholder image"
               />
             )}
-            <div style={{ maxHeight: "10%", maxWidth: "13vw" }}>
-              {movie.titleText.text}
-            </div>
+            <div style={{ maxHeight: "10%" }}>{movie.titleText.text}</div>
             <div style={{ maxHeight: "10%" }}>
               {movie.releaseYear !== null
                 ? "(" + movie.releaseYear.year + ")"
