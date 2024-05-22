@@ -15,30 +15,25 @@ const ShowSearchResult = ({ movieList = [] }) => {
     <ListedMoviesBody
       style={movieList.length > 0 ? { backgroundColor: "white" } : {}}
     >
-      {movieList.map((movie, index) => (
-        <ListedMoviesButton key={index}>
-          <Link to={`details/${movie.id}`}>
-            {/* <Link to="details" params={{test:"cokolwiek"}}> */}
-            {movie.primaryImage !== null ? (
-              <MoviePoster
-                src={movie.primaryImage.url}
-                alt={movie.titleText.text}
-              />
-            ) : (
-              <MoviePoster
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-                alt="placeholder image"
-              />
-            )}
-            <div style={{ maxHeight: "10%", maxWidth: "13vw" }}>
-              {movie.titleText.text}
-            </div>
-            <div style={{ maxHeight: "10%" }}>
-              {movie.releaseYear !== null
-                ? "(" + movie.releaseYear.year + ")"
-                : "(????)"}
-            </div>
-          </Link>
+      {movieList.map((movie) => (
+        <ListedMoviesButton key={movie.id}>
+          {movie.primaryImage !== null ? (
+            <MoviePoster
+              src={movie.primaryImage.url}
+              alt={movie.titleText.text}
+            />
+          ) : (
+            <MoviePoster
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+              alt="placeholder image"
+            />
+          )}
+          <div style={{ maxHeight: "10%" }}>{movie.titleText.text}</div>
+          <div style={{ maxHeight: "10%" }}>
+            {movie.releaseYear !== null
+              ? "(" + movie.releaseYear.year + ")"
+              : "(????)"}
+          </div>
         </ListedMoviesButton>
       ))}
     </ListedMoviesBody>
