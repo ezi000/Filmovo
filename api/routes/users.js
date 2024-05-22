@@ -2,17 +2,16 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
-
+import checkAuth from "../middleware/checkAuth.js";
 const router = express.Router();
 
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", async (req, res, _next) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new User({
       username: req.body.username,
       password: hashedPassword,
       isAdmin: false,
-      //nickname: '',
     });
     await user.save();
     res.status(201).json({ message: "Created user" });
@@ -21,7 +20,7 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", async (req, res, _next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
 
@@ -39,7 +38,6 @@ router.post("/login", async (req, res, next) => {
       expiresIn: "3h",
     });
 
-    console.log(res);
 
     return res
       .cookie("token", token, {
@@ -56,9 +54,17 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.post("/logout", (req, res, next) => {
+router.post("/logout", (req, res, _next) => {
   res.clearCookie("token");
   return res.json({ message: "Logged out" });
 });
+
+router.get("/me", checkAuth, async (req, res, _next) => {
+  if (!req.user) {
+    return res.status(403).json({ message: "Authorization error" });
+  }
+  return res.json(req.user);
+});
+
 
 export default router;

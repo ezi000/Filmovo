@@ -42,6 +42,11 @@ export default createGlobalStyle`
   }
 
 }
+  a{
+    text-decoration: none;
+    color: black;
+  }
+
 
   body{
     background-color: #dfdbe5;

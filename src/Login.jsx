@@ -7,6 +7,7 @@ import {
   StyledButton,
 } from "./authStyles.js";
 import { useFormik } from "formik";
+import { getLoggedUser } from "./getLoggedUser.js";
 
 const Login = () => {
   const formik = useFormik({
@@ -14,8 +15,9 @@ const Login = () => {
       login: "",
       password: "",
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       handleLogin(values.login, values.password);
+      console.log(getLoggedUser());
       formik.resetForm();
     },
   });
@@ -52,21 +54,21 @@ const Login = () => {
   );
 };
 
-const handleLogin = (loginLog, passwordLog) => {
-  fetch("http://localhost:3000/users/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: loginLog,
-      password: passwordLog,
-    }),
-  }).then((_data) => {
-    console.log(_data);
-    //do reduxa przekazać usera do globalnego stanu
-    //if nickname = '' -> username
-  });
+const handleLogin = async (loginLog, passwordLog) => {
+  try {
+    await fetch("http://localhost:3000/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: loginLog,
+        password: passwordLog,
+      }),
+    });
+  } catch (error) {
+    console.error("Error logging in:", error);
+  }
 };
 
 export default Login;
