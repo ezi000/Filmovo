@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ShowSearchResult = ({ movieList = [] }) => {
   const movies = useRef([]);
@@ -44,7 +45,7 @@ ShowSearchResult.propTypes = {
 
 const MoviePoster = styled.img`
   max-height: 15vw;
-  max-width: 13vw;
+  max-width: 11vw;
   width: auto;
   @media only screen and (max-width: 768px) {
     max-height: 20vw;
