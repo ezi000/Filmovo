@@ -1,15 +1,25 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const ShowSearchResult = ({ movieList = [] }) => {
+const ShowSearchResult = ({ movieList: initialMovieList = [] }) => {
+  const [movieList, setMovieList] = useState(initialMovieList);
   const movies = useRef([]);
   useEffect(() => {
-    if (movieList && movieList.length > 0) {
-      movies.current = movieList;
+    if (initialMovieList && initialMovieList.length > 0) {
+      movies.current = initialMovieList;
+      localStorage.setItem("movieList", JSON.stringify(initialMovieList));
+      setMovieList(initialMovieList);
+    } else {
+      const cachedMovies = localStorage.getItem("movieList");
+      if (cachedMovies) {
+        const parsedMovies = JSON.parse(cachedMovies);
+        movies.current = parsedMovies;
+        setMovieList(parsedMovies);
+      }
     }
-  }, [movieList]);
+  }, [initialMovieList]);
 
   return (
     <ListedMoviesBody

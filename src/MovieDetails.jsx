@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { StyledAuthBody } from "./authStyles";
-import BasicRating from "./BasicRating";
+import { StyledAuthBody, Body, StyledButton } from "./authStyles";
 import styled from "styled-components";
 import axios from "axios";
+import Rating from "@mui/material/Rating";
 
 function MovieDetails() {
   const { id } = useParams(); // Pobieramy identyfikator filmu z adresu URL
   const [movieDetails, setMovieDetails] = useState(null); // Stan przechowujący szczegóły filmu
+  const [value, setValue] = useState(2);
 
   useEffect(() => {
     async function getMovieDetails() {
@@ -36,23 +37,36 @@ function MovieDetails() {
   }, [id]); // Wywołujemy ponownie efekt, gdy zmienia się identyfikator filmu
 
   return (
-    <StyledAuthBodyForMovieDetails>
-      {movieDetails ? (
-        <Content>
-          <MoviePoster
-            src={movieDetails.primaryImage.url}
-            alt={`${movieDetails.titleText?.text} poster`}
-          />
-          <MovieInfo>
-            <h1>{movieDetails.titleText?.text}</h1>
-            <p>Release Year: {movieDetails.releaseYear?.year}</p>
-            <BasicRating />
-          </MovieInfo>
-        </Content>
-      ) : (
-        <Loading>Loading...</Loading>
-      )}
-    </StyledAuthBodyForMovieDetails>
+    <Body>
+      <StyledAuthBodyForMovieDetails>
+        {movieDetails ? (
+          <Content>
+            <MoviePoster
+              src={movieDetails.primaryImage.url}
+              alt={`${movieDetails.titleText?.text} poster`}
+            />
+            <MovieInfo>
+              <h1>{movieDetails.titleText?.text}</h1>
+              <p>Release Year: {movieDetails.releaseYear?.year}</p>
+              <RatingContainer>
+                <p>Rate The Movie</p>
+                <Rating
+                  name="simple-controlled"
+                  size="large"
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+              </RatingContainer>
+              <StyledButton>Submit your rating</StyledButton>
+            </MovieInfo>
+          </Content>
+        ) : (
+          <Loading>Loading...</Loading>
+        )}
+      </StyledAuthBodyForMovieDetails>
+    </Body>
   );
 }
 
@@ -64,9 +78,15 @@ const StyledAuthBodyForMovieDetails = styled(StyledAuthBody)`
   padding: 2rem;
   width: 50%;
   height: fit-content;
-  max-height: 30rem;
+  max-height: 33rem;
   max-width: 20rem;
-  margin-top: 5rem;
+  margin-top: 5rem auto 0 auto;
+`;
+
+const RatingContainer = styled.div`
+  border-radius: 1rem;
+  border: 1px dashed #213f1b;
+  padding: 1rem;
 `;
 
 const Content = styled.div`
@@ -81,9 +101,12 @@ const Content = styled.div`
 `;
 
 const MoviePoster = styled.img`
-  max-width: 5rem;
+  max-width: 11rem;
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  @media (max-width: 768px) {
+    max-width: 9rem;
+  }
 `;
 
 const MovieInfo = styled.div`
@@ -93,10 +116,6 @@ const MovieInfo = styled.div`
   text-align: center;
   justify-content: center;
   gap: 1rem;
-  @media (min-width: 768px) {
-    align-items: flex-start;
-    text-align: left;
-  }
 
   h1 {
     font-size: 2rem;
