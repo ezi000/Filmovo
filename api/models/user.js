@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: String,
-  isAdmin: Boolean,
+  password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false },
 });
 
 const User = mongoose.model("User", userSchema);

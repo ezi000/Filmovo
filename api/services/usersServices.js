@@ -1,5 +1,5 @@
-import User from "../models/user.js";
+import user from "../models/user";
 
 export const get_user = async (username) => {
-  return await User.findOne({ username: username }).exec();
+  return await user.findOne({ username: username }).exec();
 };
