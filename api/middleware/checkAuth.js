@@ -8,6 +8,7 @@ function checkAuth(req, res, next) {
   }
 
   try {
+    // eslint-disable-next-line no-undef
     const data = jwt.verify(token, process.env.JWT_KEY);
     req.username = data.username;
     return next();
