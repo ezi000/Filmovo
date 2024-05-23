@@ -42,7 +42,7 @@ function MovieDetails() {
         {movieDetails ? (
           <Content>
             <MoviePoster
-              src={movieDetails.primaryImage.url}
+              src={movieDetails.primaryImage?.url}
               alt={`${movieDetails.titleText?.text} poster`}
             />
             <MovieInfo>
@@ -80,7 +80,10 @@ const StyledAuthBodyForMovieDetails = styled(StyledAuthBody)`
   height: fit-content;
   max-height: 33rem;
   max-width: 20rem;
-  margin-top: 5rem auto 0 auto;
+  margin-top: 2rem;
+  @media (max-width: 768px) {
+    width: 70%;
+  }
 `;
 
 const RatingContainer = styled.div`
@@ -102,8 +105,8 @@ const Content = styled.div`
 
 const MoviePoster = styled.img`
   max-width: 11rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgb(0, 0, 0);
   @media (max-width: 768px) {
     max-width: 9rem;
   }
