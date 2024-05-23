@@ -7,16 +7,20 @@ import {
   StyledButton,
 } from "./authStyles.js";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       login: "",
       password: "",
     },
     onSubmit: async (values) => {
-      handleLogin(values.login, values.password);
+      await handleLogin(values.login, values.password);
       formik.resetForm();
+      navigate("/");
     },
   });
 
@@ -54,8 +58,9 @@ const Login = () => {
 
 const handleLogin = async (loginLog, passwordLog) => {
   try {
-    const response = await fetch("http://localhost:3000/users/login", {
+    const response = await fetch("https://localhost:3000/users/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

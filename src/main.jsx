@@ -7,6 +7,7 @@ import Register from "./Register.jsx";
 import SearchPage from "./SearchPage.jsx";
 import GlobalFonts from "./assets/globalStyles";
 import MovieDetails from "./MovieDetails.jsx";
+import RatedMovies from "./RatedMovies.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/search/details/:id",
     element: <MovieDetails />,
+  },
+  {
+    path: "ratedmovies",
+    element: <RatedMovies />,
   },
 ]);
 

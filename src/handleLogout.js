@@ -1,15 +1,16 @@
 const handleLogout = async () => {
   try {
-    const response = await fetch('http://localhost:3000/users/logout', {
+    const response = await fetch('https://localhost:3000/users/logout', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     });
 
     if (response.ok) {
       localStorage.clear();
-      window.location.reload();
+      // window.location.reload();
     } else {
       throw new Error('Logout failed');
     }
@@ -19,4 +20,3 @@ const handleLogout = async () => {
 };
 
 export default handleLogout;
-

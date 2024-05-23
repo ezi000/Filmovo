@@ -2,7 +2,6 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
-import checkAuth from "../middleware/checkAuth.js";
 const router = express.Router();
 
 router.post("/signup", async (req, res, _next) => {
@@ -42,7 +41,7 @@ router.post("/login", async (req, res, _next) => {
     return res
       .cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
       })
       .status(200)
       .json({
@@ -55,10 +54,9 @@ router.post("/login", async (req, res, _next) => {
   }
 });
 
-router.post("/logout", (req, res, _next) => {
-  res.clearCookie("token");
+router.post("/logout", (req, res) => {
+  res.clearCookie("token",{httpOnly: true, secure: true});
   return res.json({ message: "Logged out" });
 });
-
 
 export default router;

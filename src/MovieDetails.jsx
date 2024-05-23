@@ -59,7 +59,18 @@ function MovieDetails() {
                   }}
                 />
               </RatingContainer>
-              <StyledButton>Submit your rating</StyledButton>
+              <StyledButton
+                onClick={(e) =>
+                  handleAddingMovie(
+                    e,
+                    movieDetails.titleText?.text,
+                    movieDetails.primaryImage?.url,
+                    value
+                  )
+                }
+              >
+                Submit your rating
+              </StyledButton>
             </MovieInfo>
           </Content>
         ) : (
@@ -134,5 +145,24 @@ const MovieInfo = styled.div`
 const Loading = styled.h1`
   font-size: 2rem;
 `;
+
+const handleAddingMovie = (event, title, poster, rating) => {
+  event.preventDefault();
+  return fetch("https://localhost:3000/movies/addMovie", {
+    method: "POST",
+    body: JSON.stringify({
+      title: title,
+      poster: poster,
+      rating: rating,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  }).then((_data) => {
+    console.log(_data);
+    return _data.status;
+  });
+};
 
 export default MovieDetails;

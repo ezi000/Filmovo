@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user.js";
 
 const  checkAuth= async(req, res, next) =>{
   const token = req?.cookies?.token;
@@ -10,10 +9,7 @@ const  checkAuth= async(req, res, next) =>{
 
   try {
     const data = jwt.verify(token, process.env.JWT_KEY);
-    console.log(data);
-    const user = await User.findOne({ username: data.username });
-    console.log(user)
-    req.user = user;
+    req.username = data.username;
     return next();
   } catch (err) {
     return res.status(403).json({ message: "Authorization error" });
