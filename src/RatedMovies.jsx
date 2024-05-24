@@ -8,7 +8,11 @@ export const RatedMovies = () => {
   const { movies, loading } = useGetMovies();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <BodyBody>
+        <StyledH1>Loading...</StyledH1>;
+      </BodyBody>
+    );
   }
   console.log(movies);
   return (

@@ -3,24 +3,52 @@ import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { StyledButton } from "./authStyles";
 import handleLogout from "./handleLogout";
+import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
 
 export const NavBar = () => {
   return (
     <>
       <NavBarBody>
-        <IconButton aria-label="delete">
-          <ArrowBackIcon />
-        </IconButton>
-        <LogoutButton onClick={() => handleLogout()}>Log out</LogoutButton>
+        <Link to="/">
+          <IconButton>
+            <ArrowBackIcon />
+          </IconButton>
+        </Link>
+        <ButtonGroup>
+          <Link to="/search">
+            <StyledRatedButton variant="contained" startIcon={<StarHalfIcon />}>
+              Add your rating
+            </StyledRatedButton>
+          </Link>
+          <LogoutButton onClick={() => handleLogout()}>Log out</LogoutButton>
+        </ButtonGroup>
       </NavBarBody>
     </>
   );
 };
 
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const StyledRatedButton = styled(Button)`
+  background-color: #bc6c25 !important;
+  font-family: "Mirador-BoldDEMO" !important;
+  height: 3rem !important;
+  width: 13rem !important;
+  @media screen and (max-width: 768px) {
+    font-size: 0.8rem !important;
+  }
+`;
+
 const NavBarBody = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
   background-color: #f5f5f5;
   padding: 1rem;
   border-radius: 1rem;

@@ -4,11 +4,13 @@ import { StyledAuthBody, Body, StyledButton } from "./authStyles";
 import styled from "styled-components";
 import axios from "axios";
 import Rating from "@mui/material/Rating";
+import { useNavigate } from "react-router-dom";
 
 function MovieDetails() {
   const { id } = useParams(); // Pobieramy identyfikator filmu z adresu URL
   const [movieDetails, setMovieDetails] = useState(null); // Stan przechowujący szczegóły filmu
   const [value, setValue] = useState(2);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getMovieDetails() {
@@ -60,14 +62,15 @@ function MovieDetails() {
                 />
               </RatingContainer>
               <StyledButton
-                onClick={(e) =>
-                  handleAddingMovie(
+                onClick={async (e) => {
+                  await handleAddingMovie(
                     e,
                     movieDetails.titleText?.text,
                     movieDetails.primaryImage?.url,
                     value
-                  )
-                }
+                  );
+                  navigate("/search");
+                }}
               >
                 Submit your rating
               </StyledButton>

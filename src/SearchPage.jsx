@@ -27,7 +27,7 @@ const Body = styled.div`
   max-width: 1280px;
   gap: 0.6rem;
   width: 80vw;
-  margin: 5rem auto;
+  margin: 2rem auto;
 `;
 
 export default SearchPage;

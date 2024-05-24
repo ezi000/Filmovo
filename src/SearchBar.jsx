@@ -3,6 +3,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const SearchBar = ({ searchMovies }) => {
   const [title, setTitle] = useState("");
@@ -14,6 +17,12 @@ const SearchBar = ({ searchMovies }) => {
 
   return (
     <>
+      <Link to="/ratedmovies">
+        <IconButton>
+          <ArrowBackIcon />
+        </IconButton>
+      </Link>
+
       <form onSubmit={handleSearch}>
         <TextField
           sx={{ width: "100%", borderRadius: "0.8rem", padding: "0" }}
