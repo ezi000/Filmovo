@@ -6,8 +6,10 @@ import handleLogout from "./handleLogout";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
+import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
+  const navigate = useNavigate();
   return (
     <>
       <NavBarBody>
@@ -22,7 +24,14 @@ export const NavBar = () => {
               Add your rating
             </StyledRatedButton>
           </Link>
-          <LogoutButton onClick={() => handleLogout()}>Log out</LogoutButton>
+          <LogoutButton
+            onClick={() => {
+              handleLogout();
+              navigate("/");
+            }}
+          >
+            Log out
+          </LogoutButton>
         </ButtonGroup>
       </NavBarBody>
     </>
