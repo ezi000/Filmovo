@@ -6,6 +6,11 @@ import checkAuth from "../middleware/checkAuth.js";
 import { get_user } from "../services/usersServices.js";
 const router = express.Router();
 
+/**
+ * Route rejestracji nowego użytkownika.
+ * Tworzy nowego użytkownika w bazie danych na podstawie przesłanych danych, 
+ * hasło jest zahaszowane przed zapisaniem w bazie.
+ */
 router.post("/signup", async (req, res, _next) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -21,6 +26,11 @@ router.post("/signup", async (req, res, _next) => {
   }
 });
 
+/**
+ * Route logowania użytkownika.
+ * Sprawdza czy użytkownik istnieje w bazie danych, porównuje hasło z zahaszowanym hasłem w bazie,
+ * jeśli uwierzytelnienie przebiega pomyślnie, generuje token JWT i przesyła go w nagłówku odpowiedzi.
+ */
 router.post("/login", async (req, res, _next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
@@ -56,12 +66,20 @@ router.post("/login", async (req, res, _next) => {
   }
 });
 
+/**
+ * Route wylogowywania użytkownika.
+ * Usuwa token z ciasteczka i zwraca komunikat o wylogowaniu.
+ */
 router.post("/logout", (req, res) => {
   res.clearCookie("token",{httpOnly: true, secure: true});
   return res.json({ message: "Logged out" });
 });
 
-
+/**
+ * Route pobierania danych użytkownika.
+ * Sprawdza uwierzytelnienie użytkownika, pobiera dane użytkownika na podstawie nazwy 
+ * i zwraca dane.
+ */
 router.get("/me", checkAuth, async (req, res, _next) => {
   try {
     const user = await get_user(req.username);

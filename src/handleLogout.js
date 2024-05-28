@@ -1,5 +1,7 @@
+// Funkcja obsługująca wylogowywanie użytkownika
 const handleLogout = async () => {
   try {
+    // Wywołanie w celu wykonania wylogowania
     const response = await fetch('https://localhost:3000/users/logout', {
       method: 'POST',
       headers: {
@@ -7,9 +9,9 @@ const handleLogout = async () => {
       },
       credentials: "include",
     });
-
+    // Sprawdzenie czy odpowiedź zakończyła się sukcesem
     if (response.ok) {
-      localStorage.clear();
+      localStorage.clear(); // Wyczyszczenie lokalnego magazynu
       // window.location.reload();
     } else {
       throw new Error('Logout failed');

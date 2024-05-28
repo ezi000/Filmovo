@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "./userContext";
 
+// Komponent szczegółów filmu
 function MovieDetails() {
   const { id } = useParams(); // Pobieramy identyfikator filmu z adresu URL
   const [movieDetails, setMovieDetails] = useState(null); // Stan przechowujący szczegóły filmu
@@ -18,6 +19,7 @@ function MovieDetails() {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
+  // Efekt pobierający szczegóły filmu z API
   useEffect(() => {
     async function getMovieDetails() {
       const options = {
@@ -44,6 +46,7 @@ function MovieDetails() {
     getMovieDetails();
   }, [id]); // Wywołujemy ponownie efekt, gdy zmienia się identyfikator filmu
 
+  // Renderowanie zawartości komponentu
   return (
     <Body>
       <StyledAuthBodyForMovieDetails>
@@ -167,6 +170,7 @@ const Loading = styled.h1`
   font-size: 2rem;
 `;
 
+// Obsługa dodawania filmu
 const handleAddingMovie = (event, title, poster, rating) => {
   event.preventDefault();
   return fetch("https://localhost:3000/movies/addMovie", {

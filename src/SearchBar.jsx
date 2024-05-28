@@ -7,11 +7,13 @@ import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+// Komponent paska wyszukiwania filmów
 const SearchBar = ({ searchMovies }) => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(""); // Stan przechowujący tytuł filmu
 
+  // Obsługa wyszukiwania filmów
   const handleSearch = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Zapobieganie domyślnej akcji formularza
     searchMovies(title);
   };
 
@@ -50,6 +52,7 @@ const SearchBar = ({ searchMovies }) => {
   );
 };
 
+// Definicja wymaganych typów dla propsów komponentu
 SearchBar.propTypes = {
   searchMovies: PropTypes.func.isRequired,
 };
