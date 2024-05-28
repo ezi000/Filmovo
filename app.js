@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import userRoutes from "./api/routes/users.js";
+import movieRoutes from "./api/routes/movies.js";
 import dotenv from "dotenv";
 import cors from "cors";
 dotenv.config();
@@ -11,10 +12,15 @@ mongoose.connect(
 );
 
 const app = express();
+app.use(cors({
+  origin: 'https://localhost:5173', 
+  credentials: true, 
+}));
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+
 app.use("/users", userRoutes);
+app.use("/movies", movieRoutes);
 
 app.use((req, res, next) => {
   res.status(404).json({ message: "Not found" });

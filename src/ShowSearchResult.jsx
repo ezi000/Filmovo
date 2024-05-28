@@ -1,14 +1,25 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const ShowSearchResult = ({ movieList = [] }) => {
+const ShowSearchResult = ({ movieList: initialMovieList = [] }) => {
+  const [movieList, setMovieList] = useState(initialMovieList);
   const movies = useRef([]);
   useEffect(() => {
-    if (movieList && movieList.length > 0) {
-      movies.current = movieList;
+    if (initialMovieList && initialMovieList.length > 0) {
+      movies.current = initialMovieList;
+      localStorage.setItem("movieList", JSON.stringify(initialMovieList));
+      setMovieList(initialMovieList);
+    } else {
+      const cachedMovies = localStorage.getItem("movieList");
+      if (cachedMovies) {
+        const parsedMovies = JSON.parse(cachedMovies);
+        movies.current = parsedMovies;
+        setMovieList(parsedMovies);
+      }
     }
-  }, [movieList]);
+  }, [initialMovieList]);
 
   return (
     <ListedMoviesBody
@@ -16,23 +27,25 @@ const ShowSearchResult = ({ movieList = [] }) => {
     >
       {movieList.map((movie) => (
         <ListedMoviesButton key={movie.id}>
-          {movie.primaryImage !== null ? (
-            <MoviePoster
-              src={movie.primaryImage.url}
-              alt={movie.titleText.text}
-            />
-          ) : (
-            <MoviePoster
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-              alt="placeholder image"
-            />
-          )}
-          <div style={{ maxHeight: "10%" }}>{movie.titleText.text}</div>
-          <div style={{ maxHeight: "10%" }}>
-            {movie.releaseYear !== null
-              ? "(" + movie.releaseYear.year + ")"
-              : "(????)"}
-          </div>
+          <Link to={`details/${movie.id}`}>
+            {movie.primaryImage !== null ? (
+              <MoviePoster
+                src={movie.primaryImage.url}
+                alt={movie.titleText.text}
+              />
+            ) : (
+              <MoviePoster
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+                alt="placeholder image"
+              />
+            )}
+            <div style={{ maxHeight: "10%" }}>{movie.titleText.text}</div>
+            <div style={{ maxHeight: "10%" }}>
+              {movie.releaseYear !== null
+                ? "(" + movie.releaseYear.year + ")"
+                : "(????)"}
+            </div>
+          </Link>
         </ListedMoviesButton>
       ))}
     </ListedMoviesBody>
@@ -44,7 +57,7 @@ ShowSearchResult.propTypes = {
 
 const MoviePoster = styled.img`
   max-height: 15vw;
-  max-width: 13vw;
+  max-width: 11vw;
   width: auto;
   @media only screen and (max-width: 768px) {
     max-height: 20vw;

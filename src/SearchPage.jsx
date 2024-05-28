@@ -6,12 +6,10 @@ import styled from "styled-components";
 
 const SearchPage = () => {
   const [movies, setMovies] = useState([]);
-
   const searchMovies = async (title) => {
     const moviesArr = await getMovieList(title);
     setMovies(moviesArr);
   };
-
   return (
     <Body>
       <SearchBar searchMovies={searchMovies} />
@@ -27,7 +25,7 @@ const Body = styled.div`
   max-width: 1280px;
   gap: 0.6rem;
   width: 80vw;
-  margin: 5rem auto;
+  margin: 2rem auto;
 `;
 
 export default SearchPage;

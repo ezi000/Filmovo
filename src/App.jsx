@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Button from "@mui/material/Button";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
 
 function App() {
   return (
@@ -10,6 +12,11 @@ function App() {
           <Link to="login">
             <StyledButton variant="contained">Log In</StyledButton>
           </Link>
+          <Link to="ratedmovies">
+            <StyledRatedButton variant="contained" startIcon={<StarHalfIcon />}>
+              Rated movies
+            </StyledRatedButton>
+          </Link>
           <Link to="register">
             <StyledButton variant="contained">Sign Up</StyledButton>
           </Link>
@@ -18,6 +25,15 @@ function App() {
     </>
   );
 }
+
+const StyledRatedButton = styled(Button)`
+  background-color: #606c38 !important;
+  font-family: "Mirador-BoldDEMO" !important;
+  font-size: 1.3rem !important;
+  @media screen and (max-width: 768px) {
+    font-size: 1rem !important;
+  }
+`;
 
 const StyledButton = styled.button`
   border-radius: 8px;
@@ -42,6 +58,11 @@ const StyledButton = styled.button`
 const Buttons = styled.div`
   display: flex;
   gap: 1.3rem;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
 `;
 
 const H1 = styled.h1`

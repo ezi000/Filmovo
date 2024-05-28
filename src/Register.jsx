@@ -7,10 +7,12 @@ import {
   StyledButton,
 } from "./authStyles.js";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 //można dodać, żeby trzeba było 2x wpisać to samo hasło - łatwe w formiku, można też dodaż, że pole muszą być wypełnione zamiast korzystać z przeglądarkowej walidacji
 
 const Register = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       login: "",
@@ -25,6 +27,7 @@ const Register = () => {
           formik.values.password = "";
         } else {
           formik.resetForm();
+          navigate("/");
         }
       } catch (error) {
         formik.setErrors({ login: error });
@@ -70,7 +73,7 @@ const Register = () => {
 };
 
 const handleRegistration = (loginSign, passwordSign) => {
-  return fetch("http://localhost:3000/users/signup", {
+  return fetch("https://localhost:3000/users/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
