@@ -3,9 +3,33 @@ import styled from "styled-components";
 import { Body } from "./authStyles";
 import Rating from "@mui/material/Rating";
 import NavBar from "./NavBar";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import { useContext, useState } from "react";
+import { UserContext } from "./userContext";
 
 export const RatedMovies = () => {
-  const { movies, loading } = useGetMovies();
+  const [refreshKey, setRefreshKey] = useState(0);
+  const { user } = useContext(UserContext);
+  const { movies, loading } = useGetMovies(refreshKey);
+
+  const handleMovieDelete = async (movieId) => {
+    await fetch(`https://localhost:3000/movies/deleteMovie/${movieId}`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setRefreshKey((oldKey) => oldKey + 1);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   if (loading) {
     return (
@@ -14,14 +38,13 @@ export const RatedMovies = () => {
       </BodyBody>
     );
   }
-  console.log(movies);
   return (
     <>
       <BodyBody>
         <BodyColumn>
           <NavBar />
           {movies.map((movie) => (
-            <MovieBox key={movie._id}>
+            <MovieBox key={movie.id}>
               <StyledH1>{movie.title}</StyledH1>
               <MovieImage src={movie.poster} alt={movie.title} />
               <StyledRating
@@ -31,6 +54,13 @@ export const RatedMovies = () => {
                 readOnly
               />
               <StyledParagraph>Added by: {movie.who_added}</StyledParagraph>
+              {user
+                ? user.isAdmin && (
+                    <IconButton onClick={() => handleMovieDelete(movie.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  )
+                : null}
             </MovieBox>
           ))}
         </BodyColumn>

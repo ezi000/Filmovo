@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useGetMovies = () => {
+export const useGetMovies = (refreshKey) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -19,6 +19,6 @@ export const useGetMovies = () => {
             setMovies(moviesList);
             setLoading(false);
           });
-  }, []);
+  }, [refreshKey]);
   return { movies, loading };
 };

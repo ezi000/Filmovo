@@ -7,9 +7,13 @@ import {
   StyledButton,
 } from "./authStyles.js";
 import { useFormik } from "formik";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "./userContext.js";
 
 const Login = () => {
+  const { getUser, setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -26,6 +30,9 @@ const Login = () => {
           formik.values.password = "";
         } else {
           formik.resetForm();
+          getUser().then((user) => {
+            setUser(user);
+          });
           navigate("/");
         }
       } catch (error) {

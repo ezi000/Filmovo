@@ -5,12 +5,18 @@ import styled from "styled-components";
 import axios from "axios";
 import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./userContext";
 
 function MovieDetails() {
   const { id } = useParams(); // Pobieramy identyfikator filmu z adresu URL
   const [movieDetails, setMovieDetails] = useState(null); // Stan przechowujący szczegóły filmu
   const [value, setValue] = useState(2);
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     async function getMovieDetails() {
@@ -53,6 +59,7 @@ function MovieDetails() {
               <RatingContainer>
                 <p>Rate The Movie</p>
                 <Rating
+                  disabled={user ? false : true}
                   name="simple-controlled"
                   size="large"
                   value={value}
@@ -62,6 +69,7 @@ function MovieDetails() {
                 />
               </RatingContainer>
               <StyledButton
+                disabled={user ? false : true}
                 onClick={async (e) => {
                   await handleAddingMovie(
                     e,
@@ -74,6 +82,11 @@ function MovieDetails() {
               >
                 Submit your rating
               </StyledButton>
+              <Link to="/search">
+                <BackButton>
+                  <ArrowBackIcon />
+                </BackButton>
+              </Link>
             </MovieInfo>
           </Content>
         ) : (
@@ -84,6 +97,11 @@ function MovieDetails() {
   );
 }
 
+const BackButton = styled(IconButton)`
+  display: flex;
+  width: 100% !important;
+`;
+
 const StyledAuthBodyForMovieDetails = styled(StyledAuthBody)`
   color: black;
   display: flex;
@@ -92,7 +110,7 @@ const StyledAuthBodyForMovieDetails = styled(StyledAuthBody)`
   padding: 2rem;
   width: 50%;
   height: fit-content;
-  max-height: 33rem;
+  max-height: 37rem;
   max-width: 20rem;
   margin-top: 2rem;
   @media (max-width: 768px) {

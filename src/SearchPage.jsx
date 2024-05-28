@@ -6,12 +6,10 @@ import styled from "styled-components";
 
 const SearchPage = () => {
   const [movies, setMovies] = useState([]);
-
   const searchMovies = async (title) => {
     const moviesArr = await getMovieList(title);
     setMovies(moviesArr);
   };
-
   return (
     <Body>
       <SearchBar searchMovies={searchMovies} />

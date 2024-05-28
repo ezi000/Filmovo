@@ -7,9 +7,13 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./userContext";
 
 export const NavBar = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
+
   return (
     <>
       <NavBarBody>
@@ -18,25 +22,39 @@ export const NavBar = () => {
             <ArrowBackIcon />
           </IconButton>
         </Link>
+        {user && <StyledWelcomeP>Welcome, {user.username}!</StyledWelcomeP>}
         <ButtonGroup>
           <Link to="/search">
             <StyledRatedButton variant="contained" startIcon={<StarHalfIcon />}>
               Add your rating
             </StyledRatedButton>
           </Link>
-          <LogoutButton
-            onClick={() => {
-              handleLogout();
-              navigate("/");
-            }}
-          >
-            Log out
-          </LogoutButton>
+          {user && (
+            <LogoutButton
+              onClick={() => {
+                handleLogout();
+                setUser(null);
+                navigate("/");
+              }}
+            >
+              Log out
+            </LogoutButton>
+          )}
         </ButtonGroup>
       </NavBarBody>
     </>
   );
 };
+
+const StyledWelcomeP = styled.p`
+  font-family: "Mirador-BoldDEMO";
+  font-size: 1.5rem;
+  color: #79797982;
+  @media screen and (max-width: 768px) {
+    font-size: 1rem;
+    width: 5rem;
+  }
+`;
 
 const ButtonGroup = styled.div`
   display: flex;

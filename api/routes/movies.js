@@ -40,24 +40,23 @@ router.get("/getMoviesList", async (req, res) => {
   }
 });
 
-// router.delete("/deleteMovie/:id", checkAuth, async (req, res) => {
-//   try {
-//     const user = await get_user(req.username);
-//     if (user == undefined) {
-//       return res.json({ message: "Cannot delete movie" });
-//     }
+router.delete("/deleteMovie/:id", checkAuth, async (req, res) => {
+  try {
+    const user = await get_user(req.username);
+    if (user == undefined) {
+      return res.json({ message: "Cannot delete movie" });
+    }
 
-//     const movie = await ratedMovie.findById(req.params.id);
-//     if (movie.who_addedID != user._id) {
-//       return res.json({ message: "Cannot delete movie" });
-//     }
+    if (!user.isAdmin) {
+      return res.json({ message: "Cannot delete movie" });
+    }
 
-//     await ratedMovie.findByIdAndDelete(req.params.id);
-//     res.status(201).json({ message: "Deleted movie" });
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// }
+    await ratedMovie.findByIdAndDelete(req.params.id);
+    res.status(201).json({ message: "Deleted movie" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 
 
