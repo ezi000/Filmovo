@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -31,6 +32,7 @@ export const NavBar = () => {
           </Link>
           {user && (
             <LogoutButton
+              data-testid="logout-button"
               onClick={() => {
                 handleLogout();
                 setUser(null);
@@ -59,6 +61,7 @@ const StyledWelcomeP = styled.p`
 const ButtonGroup = styled.div`
   display: flex;
   gap: 1rem;
+  align-items: center;
 `;
 
 const StyledRatedButton = styled(Button)`
@@ -67,7 +70,8 @@ const StyledRatedButton = styled(Button)`
   height: 3rem !important;
   width: 13rem !important;
   @media screen and (max-width: 768px) {
-    font-size: 0.8rem !important;
+    font-size: 0.6rem !important;
+    width: 7rem !important;
   }
 `;
 
@@ -85,7 +89,13 @@ const NavBarBody = styled.div`
 `;
 
 const LogoutButton = styled(StyledButton)`
+  height: 3rem;
   width: 30%;
+  text-align: center;
+  @media screen and (max-width: 768px) {
+    width: 35%;
+    font-size: 0.8rem;
+  }
 `;
 
 export default NavBar;

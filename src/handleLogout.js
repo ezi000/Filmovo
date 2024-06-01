@@ -10,7 +10,6 @@ const handleLogout = async () => {
 
     if (response.ok) {
       localStorage.clear();
-      // window.location.reload();
     } else {
       throw new Error('Logout failed');
     }
