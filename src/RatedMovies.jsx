@@ -8,12 +8,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { UserContext } from "./userContext";
 
+
+// Komponent wyświetlający ocenione filmy
 export const RatedMovies = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const { user } = useContext(UserContext);
   const { movies, loading } = useGetMovies(refreshKey);
 
+  // Obsługa usuwania filmu
   const handleMovieDelete = async (movieId) => {
+    // Wysłanie żądania usuwania filmu
     await fetch(`https://localhost:3000/movies/deleteMovie/${movieId}`, {
       method: "DELETE",
       credentials: "include",
@@ -24,6 +28,7 @@ export const RatedMovies = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        // Odświeżenie danych
         setRefreshKey((oldKey) => oldKey + 1);
       })
       .catch((error) => {

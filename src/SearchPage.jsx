@@ -6,9 +6,11 @@ import styled from "styled-components";
 
 const SearchPage = () => {
   const [movies, setMovies] = useState([]);
+
+    // Funkcja wyszukiwania filmów
   const searchMovies = async (title) => {
-    const moviesArr = await getMovieList(title);
-    setMovies(moviesArr);
+    const moviesArr = await getMovieList(title); // Pobranie listy filmów z API
+    setMovies(moviesArr); // Aktualizacja stanu listy filmów
   };
   return (
     <Body>

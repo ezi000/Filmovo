@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "./userContext";
 
+// Komponent paska nawigacyjnego
 export const NavBar = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);

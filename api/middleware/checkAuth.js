@@ -1,5 +1,10 @@
 import jwt from "jsonwebtoken";
 
+
+/**
+ * Middleware sprawdzający uwierzytelnienie za pomocą JWT.
+ * Jeśli token jest poprawny, ustawia nazwę użytkownika w obiekcie żądania.
+ */
 const  checkAuth= async(req, res, next) =>{
   const token = req?.cookies?.token;
 

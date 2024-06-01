@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "@mui/material/Button";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 
+// Komponent główny aplikacji
 function App() {
   return (
     <>

@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import MiradorBoldDEMO from './font/Mirador-BoldDEMO.woff';
 
-  ;
+// Tworzenie globalnych stylów za pomocą styled-components
 export default createGlobalStyle`
 @font-face {
   font-family: 'Mirador-BoldDEMO';
