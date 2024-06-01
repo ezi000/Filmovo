@@ -11,6 +11,10 @@ import RatedMovies from "./RatedMovies.jsx";
 import { UserContext } from "./userContext.js";
 import { getUser } from "./getUser.js";
 
+/**
+ * Ta część kodu tworzy instancję routera za pomocą funkcji createBrowserRouter z react-router-dom.
+ * Definiuje ona ścieżki dla różnych komponentów w aplikacji.
+ */
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,11 +42,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+/**
+ * To główny komponent aplikacji, który otacza całą aplikację.
+ * Zarządza stanem użytkownika i udostępnia go innym komponentom za pomocą kontekstu React.
+ */
 export function AppWrapper() {
   const [user, setUser] = useState(null);
 
   const value = { user, getUser, setUser };
 
+  // Renderuje aplikację.
   return (
     <React.StrictMode>
       <GlobalFonts />
@@ -53,4 +62,5 @@ export function AppWrapper() {
   );
 }
 
+// Renderuje komponent AppWrapper do elementu root w dokumencie HTML.
 ReactDOM.createRoot(document.getElementById("root")).render(<AppWrapper />);

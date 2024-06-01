@@ -9,8 +9,7 @@ import {
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
-//można dodać, żeby trzeba było 2x wpisać to samo hasło - łatwe w formiku, można też dodaż, że pole muszą być wypełnione zamiast korzystać z przeglądarkowej walidacji
-
+// Komponent rejestracji użytkownika
 const Register = () => {
   const navigate = useNavigate();
   const formik = useFormik({
@@ -18,6 +17,7 @@ const Register = () => {
       login: "",
       password: "",
     },
+    // Obsługa wysłania formularza
     onSubmit: async (values) => {
       try {
         const error = await handleRegistration(values.login, values.password);
@@ -26,6 +26,7 @@ const Register = () => {
           formik.values.login = "";
           formik.values.password = "";
         } else {
+          // Powrót do strony głównej po poprawnej rejestracji
           formik.resetForm();
           navigate("/");
         }
@@ -72,6 +73,7 @@ const Register = () => {
   );
 };
 
+// Funkcja obsługująca rejestrację użytkownika
 const handleRegistration = (loginSign, passwordSign) => {
   return fetch("https://localhost:3000/users/signup", {
     method: "POST",

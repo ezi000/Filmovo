@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Funkcja pobierająca listę filmów z API na podstawie tytułu
 const getMovieList = async (title) => {
   const options = {
     method: "GET",

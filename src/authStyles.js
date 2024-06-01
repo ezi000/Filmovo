@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-
+// Stylizowany kontener dla ciała aplikacji
 export const Body = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
   height: 100%;
 `;
-//changed div to form
+// Stylizowany formularz uwierzytelniania
 export const StyledAuthBody = styled.form`
   align-items: center;
   margin-top: 5rem;

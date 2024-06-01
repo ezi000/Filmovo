@@ -11,11 +11,13 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./userContext.js";
 
+// Komponent logowania
 const Login = () => {
   const { getUser, setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
+  // Funkcja obsługująca logowanie użytkownika
   const handleLogin = async (loginLog, passwordLog) => {
     try {
       const response = await fetch("https://localhost:3000/users/login", {
@@ -38,11 +40,13 @@ const Login = () => {
     }
   };
 
+  // Użycie hooka useFormik do obsługi formularza
   const formik = useFormik({
     initialValues: {
       login: "",
       password: "",
     },
+    // Obsługa przesłania formularza
     onSubmit: async (values) => {
       try {
         const error = await handleLogin(values.login, values.password);

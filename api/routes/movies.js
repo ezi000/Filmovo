@@ -5,6 +5,11 @@ import ratedMovie from "../models/ratedMovies.js";
 
 const router = express.Router();
 
+/**
+ * Route dodawania nowego filmu.
+ * Sprawdza uwierzytelnienie użytkownika, pobiera informacje o użytkowniku,
+ * tworzy nowy dokument filmu i zapisuje go w bazie danych.
+ */
 
 router.post("/addMovie", checkAuth, async (req, res) => {
   try {
@@ -29,8 +34,10 @@ router.post("/addMovie", checkAuth, async (req, res) => {
   }
 });
 
-
-
+/**
+ * Route pobierania listy ocenionych filmów.
+ * Zwraca listę wszystkich ocenionych filmów z bazy danych.
+ */
 router.get("/getMoviesList", async (req, res) => {
   try {
     const movies = await ratedMovie.find();
@@ -40,6 +47,10 @@ router.get("/getMoviesList", async (req, res) => {
   }
 });
 
+/**
+ * Route usuwania filmu.
+ * Sprawdza uwierzytelnienie i uprawnienia użytkownika, a następnie usuwa film o podanym ID.
+ */
 router.delete("/deleteMovie/:id", checkAuth, async (req, res) => {
   try {
     const user = await get_user(req.username);
