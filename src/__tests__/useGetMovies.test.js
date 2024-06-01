@@ -57,7 +57,4 @@ describe('useGetMovies', () => {
 
     expect(queryByText('Movie 1')).not.toBeInTheDocument();
   });
-
-
-
 });

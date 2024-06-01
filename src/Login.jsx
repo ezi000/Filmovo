@@ -7,7 +7,7 @@ import {
   StyledButton,
 } from "./authStyles.js";
 import { useFormik } from "formik";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./userContext.js";
 
@@ -15,6 +15,28 @@ const Login = () => {
   const { getUser, setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
+
+  const handleLogin = async (loginLog, passwordLog) => {
+    try {
+      const response = await fetch("https://localhost:3000/users/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: loginLog,
+          password: passwordLog,
+        }),
+      });
+      const userResponse = await response.json();
+      const user = JSON.stringify(userResponse.user);
+      localStorage.setItem("user", `${user}`);
+      return response.status;
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -75,28 +97,6 @@ const Login = () => {
       </StyledAuthBody>
     </Body>
   );
-};
-
-const handleLogin = async (loginLog, passwordLog) => {
-  try {
-    const response = await fetch("https://localhost:3000/users/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: loginLog,
-        password: passwordLog,
-      }),
-    });
-    const userResponse = await response.json();
-    const user = JSON.stringify(userResponse.user);
-    localStorage.setItem("user", `${user}`);
-    return response.status;
-  } catch (error) {
-    console.error("Error logging in:", error);
-  }
 };
 
 export default Login;
