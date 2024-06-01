@@ -1,3 +1,4 @@
+import React, { useContext, useState } from "react";
 import { useGetMovies } from "./useGetMovies";
 import styled from "styled-components";
 import { Body } from "./authStyles";
@@ -5,7 +6,6 @@ import Rating from "@mui/material/Rating";
 import NavBar from "./NavBar";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import { useContext, useState } from "react";
 import { UserContext } from "./userContext";
 
 
@@ -61,7 +61,10 @@ export const RatedMovies = () => {
               <StyledParagraph>Added by: {movie.who_added}</StyledParagraph>
               {user
                 ? user.isAdmin && (
-                    <IconButton onClick={() => handleMovieDelete(movie.id)}>
+                    <IconButton
+                      data-testid="delete-button"
+                      onClick={() => handleMovieDelete(movie.id)}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   )

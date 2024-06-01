@@ -12,7 +12,6 @@ const handleLogout = async () => {
     // Sprawdzenie czy odpowiedź zakończyła się sukcesem
     if (response.ok) {
       localStorage.clear(); // Wyczyszczenie lokalnego magazynu
-      // window.location.reload();
     } else {
       throw new Error('Logout failed');
     }

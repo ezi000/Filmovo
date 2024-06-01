@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { StyledAuthBody, Body, StyledButton } from "./authStyles";
 import styled from "styled-components";
@@ -72,6 +72,7 @@ function MovieDetails() {
                 />
               </RatingContainer>
               <StyledButton
+                data-testid="add-movie-button"
                 disabled={user ? false : true}
                 onClick={async (e) => {
                   await handleAddingMovie(
@@ -185,7 +186,6 @@ const handleAddingMovie = (event, title, poster, rating) => {
     },
     credentials: "include",
   }).then((_data) => {
-    console.log(_data);
     return _data.status;
   });
 };
