@@ -7,7 +7,7 @@ import {
   StyledButton,
 } from "./authStyles.js";
 import { useFormik } from "formik";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./userContext.js";
 
@@ -17,7 +17,30 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-    // Użycie hooka useFormik do obsługi formularza
+  // Funkcja obsługująca logowanie użytkownika
+  const handleLogin = async (loginLog, passwordLog) => {
+    try {
+      const response = await fetch("https://localhost:3000/users/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: loginLog,
+          password: passwordLog,
+        }),
+      });
+      const userResponse = await response.json();
+      const user = JSON.stringify(userResponse.user);
+      localStorage.setItem("user", `${user}`);
+      return response.status;
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+  };
+
+  // Użycie hooka useFormik do obsługi formularza
   const formik = useFormik({
     initialValues: {
       login: "",
@@ -78,28 +101,6 @@ const Login = () => {
       </StyledAuthBody>
     </Body>
   );
-};
-// Funkcja obsługująca logowanie użytkownika
-const handleLogin = async (loginLog, passwordLog) => {
-  try {
-    const response = await fetch("https://localhost:3000/users/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: loginLog,
-        password: passwordLog,
-      }),
-    });
-    const userResponse = await response.json();
-    const user = JSON.stringify(userResponse.user);
-    localStorage.setItem("user", `${user}`);
-    return response.status;
-  } catch (error) {
-    console.error("Error logging in:", error);
-  }
 };
 
 export default Login;
